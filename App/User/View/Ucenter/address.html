@@ -1,0 +1,119 @@
+<include file="Public/header" />
+</head>
+
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** -->
+    <section id="ucenter" class="ucenter section">
+        <div class="container">
+            <div class="row">
+                <include file="Public/side_nav" />
+                <div class="item col-md-9 uc_content">
+                    <h2 class="title text-center">地址管理</h2>
+                    <div class="content">
+                        <include file="Ucenter/address_select" />
+                        <button class="btn btn-primary" onclick="return btn_select()" type="submit">设为默认地址</button>
+                    </div>
+                    <!--//content-->
+                </div>
+                <!--//item-->
+                <div class="clearfix visible-md"></div>
+            </div>
+            <!--//row-->
+        </div>
+        <!--//container-->
+    </section>
+    <!--//about-->
+    <include file="Public/footer" />
+    <include file="Public/header_js" />
+    <!-- Javascript -->
+    <script src="__PUBLIC__/Home/js/distpicker.data.min.js"></script>
+    <script src="__PUBLIC__/Home/js/distpicker.min.js"></script>
+    <script type="text/javascript">
+    $("input").click(function() {
+        if ($('#addr_add:checked').val() == null) {
+            $('#address_add').slideUp();
+        } else {
+            $('#address_add').slideDown();
+        }
+    });
+
+    function btn_submit() {
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Ucenter/address_add_Query')}",
+                data: $('#address_add').serialize(),
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if (!response.status) {
+                        location = "{:U('Ucenter/address')}";
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {
+
+            });
+        return false;
+    }
+
+    function btn_select() {
+        var address = $('input[name="addressId"]:checked').val();
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Ucenter/address_select')}",
+                data: {
+                    'addressId': address
+                },
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if (!response.status) {
+                        location = "{:U('Ucenter/address')}";
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {
+
+            });
+        return false;
+    }
+
+    function address_del(addressId) {
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Ucenter/address_del')}",
+                data: {
+                    'addressId': addressId
+                },
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if (!response.status) {
+                        alert(response.message);
+                        location = "{:U('Ucenter/address')}";
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {});
+        return false;
+    }
+    </script>
+</body>
+
+</html>

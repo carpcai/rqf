@@ -1,0 +1,48 @@
+<include file="Public/header" />
+</head> 
+<body>
+    
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** --> 
+    <section id="ucenter" class="ucenter section">
+        <div class="container">
+            <div class="row">
+                <include file="Public/side_nav" />
+                <div class="item col-md-10 uc_content">
+                <h2 class="title text-center">订单管理中心</h2>
+                    <div class="content">
+                        <table class="table table-hover">
+                            <tr class="active">
+                                <td>订单ID</td>
+                                <td>订单名</td>
+                                <td>价格</td>
+                                <td>订单号</td>
+                                <td>订单情况</td>
+                                <td>下单时间</td>
+                            </tr>
+                            <volist name="orderArray" id="orderArr">
+                                <tr>
+                                    <td>{$orderArr.orderId}</td>
+                                    <td>{$orderArr.goodsName}</td>
+                                    <td>{$orderArr.price}</td>
+                                    <td>{$orderArr.sendNum}</td>
+                                    <td><eq name="orderArr['isSend']" value="0">未发货<else />已发货</eq></td>
+                                    <td>{$orderArr.addTime}</td>
+                                </tr>
+                            </volist>
+                        </table>
+                    </div><!--//content-->
+
+                </div><!--//item--> 
+                <div class="clearfix visible-md"></div>            
+            </div><!--//row-->            
+        </div><!--//container-->
+    </section><!--//about-->
+    
+    <include file="Public/footer"/>
+    <include file="Public/header_js" />
+     
+    <!-- Javascript -->
+</body>
+</html> 
+

@@ -1,0 +1,72 @@
+<include file="Public/header" />
+</head>
+
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** -->
+    <section id="ucenter" class="ucenter section">
+        <div class="container">
+            <div class="row">
+                <include file="Public/side_nav" />
+                <div class="item col-md-9 uc_content text-center">
+                <h2 class="title">修改信息</h2>
+                    <form class="form-horizonta" id="modify">
+                        <div class="form-group">
+                            <label class="sr-only" for="phone">phone</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-earphone"></i>
+                                </span>
+                                <input class="form-control" placeholder="手机号" name="phone" value="{$user.phone}" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="qq">qq</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-leaf"></i>
+                                </span>
+                                <input class="form-control" placeholder="qq号" value="{$user.qq}" name="qq" type="text">
+                            </div>
+                        </div>
+                        <button id="update_btn" type="button" class="btn btn-lg btn-primary">立即修改</button>
+                        <a href="{:U('/Home/Ucenter/index')}" class="btn btn-lg btn-primary">返回</a>
+                    </form>
+                </div>
+                <!--//item-->
+                <div class="clearfix visible-md"></div>
+            </div>
+            <!--//row-->
+        </div>
+        <!--//container-->
+    </section>
+    <!--//about-->
+    <include file="Public/footer" />
+    <!-- Javascript -->
+
+    <include file="Public/header_js" />
+    <script type="text/javascript">
+    $('#update_btn').click(function() {
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Ucenter/update_info_query')}",
+                data: $('#modify').serialize(),
+                type: "POST"
+            })
+            .then(function(response) {
+                    alert(response.message);
+                    if(!response.status)
+                    	location = "{:U('Ucenter/index')}";
+                },
+                function() {
+                    
+                    alert("出错了~");
+                })
+            .always(function() {
+
+            });
+   		})
+    </script>
+</body>
+
+</html>

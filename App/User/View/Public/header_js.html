@@ -1,0 +1,18 @@
+<script type="text/javascript" src="__PUBLIC__/assets/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/assets/js/bootstrap.min.js"></script>
+<script>$("#{$side_type}").addClass("side_ac");</script>
+<script type="text/javascript">           
+    $(document).ready(function(){
+    
+    	 $(".suspend").mouseover(function() {
+            $(this).stop();
+            $(this).animate({width: 160}, 400);
+        })
+    	
+        $(".suspend").mouseout(function() {
+            $(this).stop();
+            $(this).animate({width: 40}, 400);
+        });
+    	
+    });
+</script>

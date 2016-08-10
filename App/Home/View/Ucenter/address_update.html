@@ -1,0 +1,158 @@
+<include file="Public/header" />
+</head>
+
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** -->
+    <section id="ucenter" class="ucenter section">
+        <div class="container">
+            <div class="row">
+                <include file="Public/side_nav" />
+                <div class="item col-md-9 uc_content">
+                    <h2 class="title text-center">地址管理</h2>
+                    <div class="content">
+                        <form method="post" id="address_update">
+                            <div class="addresscon">
+                                <div class="form-group">
+                                <input name="addressId" type="hidden" value="{$address.addressId}" />
+                                    <label><i class="redstar">* </i>选择平台:</label>
+                                    <div class="form-inline">
+                                        <select class="form-control" name="platform" areaname="new">
+                                            <option value="{$address.platform}">
+                                            <switch name="address.platform">
+                                            <case value="taobao">淘宝</case>
+                                            <case value="tmall">天猫</case>
+                                            <case value="alibaba">阿里巴巴</case>
+                                            <default />
+                                            </switch>
+                                            </option>
+                                            <option value="taobao">淘宝</option>
+                                            <option value="tmall">天猫</option>
+                                            <option value="alibaba">阿里巴巴</option>
+                                        </select>
+                                    </div>
+                                    <small>此信息不会打印在快递单上</small>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="redstar">* </i>店铺名称:</label>
+                                    <div style="width:30%">
+                                        <input type="text" class="form-control" name="shopName" value="{$address.shopName}" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="redstar">* </i>寄件人:</label>
+                                    <div style="width:30%">
+                                        <input type="text" class="form-control" name="addresser" value="{$address.addresser}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="redstar">* </i>店铺所在地区:</label>
+                                    <div data-toggle="distpicker" id="area_select" class="form-inline">
+                                        <select name="area_prov" id="prov" class="form-control"></select>
+                                        <select name="area_city" id="city" class="form-control"></select>
+                                        <select name="area_region" id="region" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="redstar">* </i>详细地址:</label>
+                                    <div>
+                                        <textarea class="form-control" rows="3" name="addrDetail">{$address.addrDetail}</textarea>
+                                    </div>
+                                    <small>建议您如实填写店铺实际发货地址，请详细到街道名称和门牌号码</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>备注信息:</label>
+                                    <div style="width:50%">
+                                        <input class="form-control" name="comments" placeholder="例如：请快递大哥电话联系后送货" maxlength="15" value="{$address.comments}" />
+                                    </div>
+                                    <small>限15字以内，此信息将会打印在快递单寄件人备注栏</small>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="redstar">* </i>联系电话:</label>
+                                    <div style="width:30%">
+                                        <input type="text" placeholder="请输入手机号" name="telPhone" class="form-control" value="{$address.telPhone}"/>
+                                    </div>
+                                    <small>此信息会打印在快递单寄件人栏</small>
+                                </div>
+                                <div class="form-group" id="url_check" style="display:none">
+                                    <p>
+                                        <label><i class="redstar">* </i>验证店铺:</label>
+                                        为避免不法人员利用网站包裹进行诈骗，请完成以下店铺验证：
+                                    </p>
+                                    <div class="check_shopcon">
+                                        <input name="code" type="hidden" value="1298-JVRZ">
+                                        <p>
+                                            <span>1.请将验证码:</span><em>1298-JVRZ</em>
+                                            <a href="javascript:;" class="J_copytext" data-copy="1298-JVRZ">复制验证码</a>
+                                            <span>添加到您的店铺里某个上架商品的标题上</span>
+                                        </p>
+                                        <p>类似这样：</p>
+                                        <img src="/static/images/check_shopimg.jpg" />
+                                        <p>2.再将这个商品的详情页链接，复制到下面输入框
+                                            <br /><span style="color:#f00;">提示：</span>绑定店铺成功后，商品标题中添加的验证码可以去掉；
+                                        </p>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="redstar">* </i>商品网址（URL）:</label>
+                                    <div style="width:30%">
+                                        <input type="text" name="shop_url" id="shop_url" class="form-control" value="{$address.shop_url}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div>
+                                        <input type="checkbox" class="defaltadd" name="isDefault" <if condition="$address.isDefault eq 1">checked</if>/>设置为默认发货地址
+                                    </div>
+                                    <br/>
+                                    <button type="submit" class="btn btn-default btn-primary" onclick="return btn_submit()">确定修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!--//content-->
+                </div>
+                <!--//item-->
+                <div class="clearfix visible-md"></div>
+            </div>
+            <!--//row-->
+        </div>
+        <!--//container-->
+    </section>
+    <!--//about-->
+    <include file="Public/footer" />
+    <include file="Public/header_js" />
+    <!-- Javascript -->
+    <script src="__PUBLIC__/Home/js/distpicker.data.min.js"></script>
+    <script src="__PUBLIC__/Home/js/distpicker.min.js"></script>
+    <script type="text/javascript">
+        $("#area_select").distpicker({
+            province: "{$address.area_prov}",
+            city: "{$address.area_city}",
+            district: "{$address.area_region}"
+        });
+
+        function btn_submit() {
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Ucenter/address_update_query')}",
+                data: $('#address_update').serialize(),
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if (!response.status) {
+                        location = "{:U('Ucenter/address')}";
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {
+
+            });
+        return false;
+    }
+    </script>>

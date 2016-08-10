@@ -1,0 +1,73 @@
+<include file="Public/header" />
+</head>
+
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** -->
+    <section id="shop" class="shop section">
+        <div class="container shop_bg">
+            <h2 class="text-center">第二步：填写收件人信息</h2>
+            <ul class="task-process">
+                <li class="cur"><em>1</em>填写寄件人信息<span class="cur"></span></li>
+                <li class="cur"><em>2</em>填写收件人信息<span></span></li>
+                <li><em>3</em>支付/充值<span></span></li>
+                <li><em>4</em>购买成功</li>
+            </ul>
+            <div class="taskone">
+                <h3>2.填写收件人信息<span>提示：您选择的韵达快递支持自定义包裹重量(包裹重量最大不超过40kg)</span></h3>
+            </div>
+            <div class="methodone-con" style="display: block;">
+                <div class="methodone-top">
+                    <img src="__PUBLIC__/images/tasktwo1.jpg" width="1005" height="376">
+                    <p style="color:#f00; font-weight:bold; padding-left:20px; line-height:30px;">请按照以下格式录入收件人地址信息：</p>
+                    <span>668113638521，舒克，13756098200，上海 上海市 静安区 南京西路1200号101室 ，130600<br>568642197340，贝塔，13756098100，吉林省 长春市 双阳区 乌鲁木齐路2100号513室 ，130600<br></span>
+                </div>
+                <p style="line-height:30px;">注：一次最多添加<i class="redstar">50</i>个收件人信息，每行只可添加一个，请严格按照上面的格式填写</p>
+                <p style="line-height:30px; margin:0 0 10px 0;">在上传订单过程中，如出现系统提示订单号重复，请在个人中心---我的订单界面，搜索对应订单号是否已导入发货，如有重复请删除该重复订单。</p>
+                <form action="{:U('Shop/order_add')}" method="post">
+                    <input type="hidden" name="referer" value="two">
+                    <input type="hidden" name="action" value="one_upload">
+                    <textarea name="upload_info" placeholder="录入格式：店铺订单号，收件人，收件人手机，派件地址，邮编"></textarea>
+                    <input type="submit" class="btn btn-primary" name="submit" value="上传收件人信息">
+                </form>
+            </div>
+            <div>
+            <div><h3>共{:count($infoArr)}条记录</h3></div>
+                <table class="table table-hover package_table">
+                    <tr class="active">
+                        <td>&nbsp;</td>
+                        <td width="60px">序号</td>
+                        <td>店铺订单号</td>
+                        <td width="80px">收件人</td>
+                        <td>收件人手机</td>
+                        <td>派件地址</td>
+                        <td>邮编</td>
+                        <td>操作</td>
+                    </tr>
+                    <volist name="infoArr" id="info" key="k">
+                        <tr>
+                            <td>
+                                <input type="radio" name="addressId" value="{$info.addressId}" <if condition="$info.isDefault eq 1">checked</if> />
+                            </td>
+                            <td>{$k}</td>
+                            <td>{$info[0]}</td>
+                            <td>{$info[1]}</td>
+                            <td>{$info[2]}</td>
+                            <td>{$info[3]}</td>
+                            <td>{$info[4]}</td>
+                            <td><a class="btn btn-default" onclick="address_del({$k})" href="{:U('order_del','id='.$k)}">删除</a></td>
+                        </tr>
+                    </volist>
+                </table>
+            </div>
+            <div class="text-center">
+                <a href="{:U('Shop/step_1')}" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-triangle-left" ></span>上一步</a>
+                <a class="btn btn-default btn-lg" href="{:U('Shop/step_3')}" style="margin-left:30px;">下一步<span class="glyphicon glyphicon-triangle-right"></span></a>
+            </div>
+        </div>
+    </section>
+    <include file="Public/footer" />
+    <include file="Public/header_js" />
+</body>
+
+</html>

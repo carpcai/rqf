@@ -1,0 +1,92 @@
+<include file="Public/header" />
+</head>
+
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** -->
+    <section id="ucenter" class="ucenter section">
+        <div class="container">
+            <div class="row">
+                <include file="Public/side_nav" />
+                <div class="item col-md-9 uc_content text-center">
+                    <h2 class="title">修改密码</h2>
+                    <form class="form-horizonta" id="modify">
+                         <div class="form-group">
+                            <label class="sr-only" for="old_password">旧密码</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                </span>
+                                <input type="password" id="old_password" name="old_password" class="form-control" placeholder="旧密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="password">新密码</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                </span>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="新密码">
+                            </div>
+                        </div>
+                        <div class="form-group repassword">
+                            <label class="sr-only" for="repassword">再次输入新密码</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                </span>
+                                <input type="password" class="form-control" id="repassword" name="repassword" onchange="check_pw()" placeholder="再次输入新密码">
+                            </div>
+                        </div>
+                        <button onclick="return btn_update()" type="submit" class="btn btn-lg btn-primary">立即修改</button>
+                        <a href="{:U('/Home/Ucenter/index')}" class="btn btn-lg btn-primary">返回</a>
+                    </form>
+                </div>
+                <!--//item-->
+                <div class="clearfix visible-md"></div>
+            </div>
+            <!--//row-->
+        </div>
+        <!--//container-->
+    </section>
+    <!--//about-->
+    <include file="Public/footer" />
+    <!-- Javascript -->
+    <include file="Public/header_js" />
+    <script type="text/javascript">
+    function check_pw(){
+        if($('#password').val()==$('#repassword').val())
+        {
+            $('.repassword').removeClass('has-error');
+            return true;
+        }
+        else
+        {
+            $('.repassword').addClass('has-error');
+            return false;
+        }
+    }
+    function btn_update(){
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Ucenter/update_pw_query')}",
+                data: $('#modify').serialize(),
+                type: "POST"
+            })
+            .then(function(response) {
+                    alert(response.message);
+                    if (!response.status)
+                        location = "{:U('Ucenter/index')}";
+                },
+                function() {
+
+                    alert("出错了~");
+                })
+            .always(function() {
+            });
+        return false;
+    }
+    </script>
+</body>
+
+</html>

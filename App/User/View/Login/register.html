@@ -1,0 +1,134 @@
+<include file="Public/header" />
+</head>
+
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+    <section id="login" class="login section">
+        <div class="container text-center login_container">
+            <div class="register_type">
+                <form class="form-horizonta" id="register">
+                    <div class="form-group">
+                        <label class="sr-only" for="username">username</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                            <input class="form-control" placeholder="用户名" id="username" name="username" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="password">password</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                </span>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="密码">
+                        </div>
+                    </div>
+                    <div class="form-group repassword">
+                        <label class="sr-only" for="repassword">repassword</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                </span>
+                            <input type="password" class="form-control" id="repassword" name="repassword" onchange="check_pw()" placeholder="再次输入密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="phone">phone</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-earphone"></i>
+                                </span>
+                            <input class="form-control" placeholder="手机号" name="phone" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="qq">qq</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-leaf"></i>
+                                </span>
+                            <input class="form-control" placeholder="qq号" name="qq" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="sr-only" for="code">verify</label>
+                        <div class="input-group" style="width:40%;float:left">
+                            <input class="form-control" placeholder="验证码" id="code" name="code" type="text">
+                        </div>
+                        <img id="verify_img" src="{:U('Login/verify')}" width="55%" />
+                    </div>
+                    <!--<a class="pull-right" href="#">忘记密码</a>
+                    <div class="text-left">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> 记住登陆
+                            </label>
+                        </div>
+                    </div>-->
+                    <button type="submit" class="btn btn-lg btn-primary btn-block" onclick="return btn_submit()">立即注册</button>
+                </form>
+                <div>
+                    <a class="btn btn-default-outline btn-block" href="{:U('Login/index')}">登录</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="about section">
+    </section>
+    <include file="Public/footer" />
+    <include file="Public/header_js" />
+    <script type="text/javascript">
+    function check_pw(){
+    	if($('#password').val()==$('#repassword').val())
+    	{
+    		$('.repassword').removeClass('has-error');
+    		return true;
+    	}
+    	else
+    	{
+    		$('.repassword').addClass('has-error');
+    		return false;
+    	}
+    }
+    function btn_submit()
+    {
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Login/register_query')}",
+                data: $('#register').serialize(),
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if(!response.status){
+                        location = "{:U('Index/index')}";
+                    }
+                    else{
+                        alert(response.message);
+                        var verify_url="{:U('Login/verify')}";
+                        $("#verify_img").attr({
+                            "src": verify_url,
+                        });
+                    }
+                },
+                function() {
+                    alert("出错了~");
+            })
+            .always(function() {
+                
+            });
+            return false;
+    }
+
+    $("#verify_img").click(function() {
+        $("#verify_img").attr({
+            "src": "{:U('Login/verify')}"
+        });
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<include file="Public/header" />
+</head>
+
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** -->
+    <section id="ucenter" class="ucenter section">
+        <div class="container">
+            <div class="row">
+                <include file="Public/side_nav" />
+                <div class="item col-md-9 uc_content">
+                    <h2 class="title">购买快递单</h2>
+                    <b class="introduce">韵达快递<span>2.8</span>元/单，天天快递<span>2.2</span>元/单，天天京东<span>1.7</span>元/单，全峰京东<span>1.5</span>元/单</b>
+                    <hr />
+                    <h4>选择充值金额</h4>
+                    <div class="content">
+                    <form id="shopForm">
+                        <volist name="goodsArray" id="goods">
+                            <div class="radio">
+                                <label class="radio_style">
+                                    <input type="radio" name="goodsId" id="goodsId" value="{$goods.goodsId}" checked>{$goods.goodsName},<span>{$goods.goodsPrice}</span>元/个。
+                                </label>
+                            </div>
+                        </volist>
+                        <div class="form-inline">
+                            <b>个数：</b>
+                             <button type="button" class="btn btn-default btn-sm" id="minus" title="减"><i class="glyphicon glyphicon-minus"></i></button>
+                             <input id="goodsNum" name="goodsNum" type="text" class="form-control" style="width:60px;" value="1">
+                             <button type="button" class="btn btn-default btn-sm" id="add" title="加"><i class="glyphicon glyphicon-plus"></i></button>
+                        </div>
+                        <p>
+                            <button type="button" id="shop_btn" class="btn btn-primary">立即购买</button>
+                        </p>
+                        </form>
+                    </div>
+                </div>
+                <!--//item-->
+                <div class="clearfix visible-md"></div>
+            </div>
+            <!--//row-->
+        </div>
+        <!--//container-->
+    </section>
+    <!--//about-->
+    <include file="Public/footer" />
+    <include file="Public/header_js" />
+    <!-- Javascript -->
+    <script type="text/javascript">
+        $('#add').click(function(){
+            var num=parseInt($('#goodsNum').val())+1;
+            if(num<1)num=1;
+            $('#goodsNum').val(num);
+        });
+        $('#minus').click(function(){
+            var num=parseInt($('#goodsNum').val())-1;
+            if(num<1)return;
+            $('#goodsNum').val(num);
+        });
+
+        $('#shop_btn').click(function() {
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Shop/shopQuery')}",
+                data: $('#shopForm').serialize(),
+                type: "POST"
+            })
+            .then(function(response) {
+                    alert(response.message);
+
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {
+
+            });
+        })
+        
+    </script>
+</body>
+
+</html>

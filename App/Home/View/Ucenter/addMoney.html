@@ -1,0 +1,43 @@
+<include file="Public/header" />
+</head>
+
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** -->
+    <section id="ucenter" class="ucenter section">
+        <div class="container">
+            <div class="row">
+                <include file="Public/side_nav" />
+                <div class="item col-md-9 uc_content">
+                    <h2 class="title">账户充值</h2>
+                    <b class="introduce">韵达快递<span>2.8</span>元/单，天天快递<span>2.2</span>元/单，天天京东<span>1.7</span>元/单，全峰京东<span>1.5</span>元/单</b>
+                    <hr />
+                    <h4>选择充值金额</h4>
+                    <div class="content">
+                        <volist name="rechargeArray" id="recharge">
+                            <div class="radio">
+                                <label class="radio_style">
+                                    <input type="radio" name="rechargeId" id="rechargeId" value="{$recharge.rechargeId}" checked><span>{$recharge.rechargePrice}</span>元 <span>{$recharge.remark}</span>,预计可购买：<span>{$recharge.rechargeNum}</span>个{$recharge.rechargeName}
+                                </label>
+                            </div>
+                        </volist>
+
+                        <p>
+                            <button type="button" class="btn btn-primary">立即充值</button>
+                        </p>
+                    </div>
+                </div>
+                <!--//item-->
+                <div class="clearfix visible-md"></div>
+            </div>
+            <!--//row-->
+        </div>
+        <!--//container-->
+    </section>
+    <!--//about-->
+    <include file="Public/footer" />
+    <include file="Public/header_js" />
+    <!-- Javascript -->
+</body>
+
+</html>

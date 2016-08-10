@@ -1,0 +1,128 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/jquery.fullPage.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/bootstrap.css">
+    <link rel="stylesheet" href="__PUBLIC__/Home/css/buttons.css">
+    <script src="__PUBLIC__/Home/js/jquery.min.js"></script>
+    <script src="__PUBLIC__/Home/js/jquery.fullPage.js"></script>
+    <script src="__PUBLIC__/Home/js/bootstrap.js"></script>
+    <style>
+    .section {
+        text-align: center;
+        font: 50px "Microsoft Yahei";
+        
+    }
+    </style>
+    <script>
+    $(function() {
+        $('#dowebok').fullpage({
+            sectionsColor: ['white', '#4BBFC3', '#7BAABE', '#f90']
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+            <form class="form-horizonta" id="login">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center" id="myModalLabel" style="font-weight:700;">账号登陆</h4>
+                </div>
+                <div class="modal-body ">
+
+                    <div class="form-group form-horizontal ">
+                        <label class="control-label sr-only" for="Account"></label>
+                        <div class="input-group ">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                            <input type="text" name="username" class="form-control" id="Account" placeholder="账号">
+                        </div>
+                    </div>
+                    </br>
+                    <div class="form-group form-horizontal has-feedback ">
+                        <label class="control-label sr-only" for="Password"></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                            <input type="text" name="password" class="form-control" id="Password" placeholder="密码">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer " style="text-align:center;">
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <p style="display:none;color:red" id='confirm'>账号或密码错误</p>
+                    <button type="button" class="btn btn-lg button-glow button-border button-rounded button-primary" style="width:100px;padding:0px;" onclick="return btn_submit()">登陆</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <div id="dowebok">
+        <div class="section">
+            <!-- Button trigger modal -->
+            <h2>友信<h1 >像朋友一样互相信任</h1></h2>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                登陆
+            </button>
+            <button type="button" class="btn btn-primary btn-lg">注册</button>
+        </div>
+        <div class="section">
+            <div class="slide">
+                <h3>第二屏的第一屏</h3></div>
+            <div class="slide">
+                <h3>第二屏的第二屏</h3></div>
+            <div class="slide">
+                <h3>第二屏的第三屏</h3></div>
+        </div>
+        <div class="section">
+            <h3>第三屏</h3>
+        </div>
+        <div class="section">
+            <h3>第四屏</h3>
+            <p>这是最后一屏</p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    function btn_submit()
+    {
+        $.ajax({
+                url: "{:U('Login/login_query')}",
+                data: $('#login').serialize(),
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if(!response.status) //登录失败
+                        alert(response.message);
+                    else
+                    {
+                        if(response.identity==2)    //买手
+                        {
+                            location = "{:U('Ucenter/index')}";
+                        }
+                        else if(response.identity==1)   //商家
+                        {
+                            location = "{:U('/User/Index/index')}";
+                        }
+                        else
+                        {
+                            alert(response.identity+"不能使用");
+                        }
+                    }
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {
+            });
+            return false;
+    }
+    </script>
+</body>
+
+</html>

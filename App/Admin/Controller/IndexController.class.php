@@ -1,0 +1,11 @@
+<?php
+namespace Admin\Controller;
+use Think\Controller;
+class IndexController extends BaseController {
+    public function index()
+    {
+      //redirect(U('/Admin/User'));
+      $this->display();
+    }
+
+}

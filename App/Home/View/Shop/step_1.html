@@ -1,0 +1,147 @@
+<include file="Public/header" />
+</head>
+
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** -->
+    <section id="shop" class="shop section">
+        <div class="container shop_bg">
+            <h2 class="text-center">第一步：填写寄件人信息</h2>
+            <ul class="task-process">
+                <li class="cur"><em>1</em>填写寄件人信息<span></span></li>
+                <li><em>2</em>填写收件人信息<span></span></li>
+                <li><em>3</em>支付/充值<span></span></li>
+                <li><em>4</em>购买成功</li>
+            </ul>
+            <div class="taskone">
+                <h3>1.填写寄件人信息<span>全国主要城市，专人打印快递面单，真实发货，以下信息会打印到快递面单寄件人栏</span></h3>
+            </div>
+            <include file="Ucenter/address_select" />
+            <hr />
+            <div class="taskone">
+                <h3>2.选择发货快递<span>请选择您店铺日常使用的快递, 减少降权几率</span></h3>
+            </div>
+            <table class="table table-hover text-center package_table table-bordered">
+                <tr class="active">
+                    <td>选择发货快递</td>
+
+                    <td>会员价格</td>
+                    <td colspan="4">可提供的服务</td>
+                </tr>
+                <volist name="goodsArray" id="goods">
+                    <tr>
+                        <td>
+                        <input type="radio" name="goodsId" id="ai{$goods.goodsId}" value="{$goods.goodsId}" <if condition="$goods.isDefault eq 1">checked</if> />
+                            <label for="ai{$goods.goodsId}">{$goods.goodsName}</label>
+                            
+                        </td>
+                        <td>{$goods.goodsPrice}元/个</td>
+                    	<td>{$goods.advantage_1}</td>
+                    	<td>{$goods.advantage_2}</td>
+                    	<td>{$goods.advantage_3}</td>
+                    	<td>{$goods.advantage_4}</td>
+                    </tr>
+                </volist>
+            </table>
+            <div class="text-center"><button class="btn btn-primary btn-lg" onclick="return btn_next()">下一步<span class="glyphicon glyphicon-triangle-right"></span></button></div>
+            
+        </div>
+    </section>
+    <include file="Public/footer" />
+    <include file="Public/header_js" />
+    <!-- Javascript -->
+    <script src="__PUBLIC__/Home/js/distpicker.data.min.js"></script>
+    <script src="__PUBLIC__/Home/js/distpicker.min.js"></script>
+    <script type="text/javascript">
+    $("input").click(function() {
+        if ($('#addr_add:checked').val() == null) {
+            $('#address_add').slideUp();
+        } else {
+            $('#address_add').slideDown();
+        }
+    });
+
+    function btn_submit() {
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Ucenter/address_add_Query')}",
+                data: $('#address_add').serialize(),
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if (!response.status) {
+                        location = "{:U('shop/step_1')}";
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {
+
+            });
+        return false;
+    }
+
+    function btn_next() {
+        var goodsId=$("input[name='goodsId']:checked").val();
+        var addressId=$("input[name='addressId']:checked").val();
+        console.log(1);
+        console.log(goodsId);
+        console.log(addressId);
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Shop/step_1_query')}",
+                data: {
+                    'goodsId':goodsId,
+                    'addressId':addressId,
+                },
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if (!response.status) {
+                        location = "{:U('shop/step_2')}";
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {
+
+            });
+        return false;
+    }
+
+    function address_del(addressId) {
+        $.ajax({
+                // Change URL to see error happen
+                url: "{:U('Ucenter/address_del')}",
+                data: {
+                    'addressId': addressId
+                },
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if (!response.status) {
+                        alert(response.message);
+                        location = "{:U('Ucenter/address')}";
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {});
+        return false;
+    }
+    </script>
+</body>
+
+</html>

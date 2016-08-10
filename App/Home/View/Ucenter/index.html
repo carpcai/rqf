@@ -1,0 +1,40 @@
+<include file="Public/header" />
+</head> 
+<body data-spy="scroll">
+    
+    <include file="Public/header_nav" />
+    <!-- ******ABOUT****** --> 
+    <section id="ucenter" class="ucenter section">
+        <div class="container">
+            <div class="row">
+                <include file="Public/side_nav" />
+                <div class="item col-md-9 uc_content">
+                <h2 class="title text-center">个人中心</h2>
+                    <div class="content">
+                        <h3 class="sub-title">我的信息</h3>
+                        <p>用户名：<a href="#">{$user.username}</a></p>
+                        <!-- <p>密码：已设置<a style="float:right" href="{:U('update_pw')}">修改</a></p> -->
+                        <h3 class="sub-title">我的信息</h3>
+                        
+                        <p>手机号：<a href="#">{$user.phone}</a></p>
+                        <p>qq号：<a href="#">{$user.qq}</a></p>
+                        <p>余额：<a href="#">{$user.money}</a></p>
+                        <br />
+                        <div class="text-center">
+                        <a id="register_btn" href="{:U('Ucenter/update_info')}" class="btn btn-lg btn-primary">修改个人信息</a>
+                        </div>
+                    </div><!--//content-->
+
+                </div><!--//item--> 
+                <div class="clearfix visible-md"></div>            
+            </div><!--//row-->            
+        </div><!--//container-->
+    </section><!--//about-->
+    
+    <include file="Public/footer"/>
+    <include file="Public/header_js"/>
+     
+    <!-- Javascript -->
+</body>
+</html> 
+

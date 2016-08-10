@@ -1,0 +1,76 @@
+<include file="Public/header" />
+</head> 
+<body data-spy="scroll">
+    <include file="Public/header_nav" />
+        <section class="login section">
+            
+            <div class="container text-center login_container">
+                <div class="login_type">
+                    <form class="form-horizonta" id="login">
+                        <div class="form-group">
+                            <label class="sr-only" for="username">username</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <input class="form-control" placeholder="用户名" id="username" name="username" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="InputPassword"></label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                </span>
+                                <input type="password" class="form-control" name="password" placeholder="密码">
+                            </div>
+                        </div>
+
+                        <!--<a class="pull-right" href="#">忘记密码</a>
+                        <div class="text-left">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> 记住登陆
+                                </label>
+                            </div>
+                        </div>-->
+                        <button type="submit" class="btn btn-lg btn-primary btn-block" onclick="return btn_submit()">登陆</button>
+                    </form>
+                    <div style="margin:10px">
+                        还没有账户？
+                        <a class="btn btn-default-outline btn-block" href="{:U('Login/register')}">立即注册</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    <include file="Public/footer" />
+
+    <include file="Public/header_js" />
+    <script type="text/javascript">
+    function btn_submit()
+    {
+        $.ajax({
+                url: "{:U('Login/login_query')}",
+                data: $('#login').serialize(),
+                type: "POST"
+            })
+            .then(function(response) {
+                    // success
+                    if(!response.status) //登录失败
+                        alert(response.message);
+                    else
+                    {
+                      location = "{:U('Index/index')}";
+                    }
+                },
+                function() {
+                    alert("出错了~");
+                })
+            .always(function() {
+            });
+            return false;
+    }
+    </script>
+</body>
+</html>

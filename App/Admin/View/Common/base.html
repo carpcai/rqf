@@ -1,0 +1,167 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <block name="title"><title>{$Think.const.WEB_TITLE} --后台管理</title></block>
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/assets/css/admin.css">
+    <block name="css"></block>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar admin-header">
+    <div class="am-topbar-brand">
+        <strong>{$Think.const.WEB_TITLE}</strong>
+        <small>后台管理</small>
+    </div>
+
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+            class="am-icon-bars"></span></button>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+            <!-- <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span
+                     class="am-badge am-badge-warning">5</span></a></li>-->
+            <li class="am-dropdown" data-am-dropdown>
+                <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                    <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+                </a>
+                <ul class="am-dropdown-content">
+                    <li><a href="{:U('/Admin/Login/changePW')}"><span class="am-icon-user"></span> 修改密码</a></li>
+                    <li><a href="{:U('/Admin/Login/logout')}"><span class="am-icon-power-off"></span> 退出</a></li>
+                </ul>
+            </li>
+            <li><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span
+                    class="admin-fullText">开启全屏</span></a></li>
+        </ul>
+    </div>
+</header>
+
+<div class="am-cf admin-main">
+    <!-- sidebar start -->
+    <block name="sidebar">
+        <div class="admin-sidebar" style="min-height: 860px">
+            <ul class="am-list admin-sidebar-list am-in">
+                <!-- <li><a href="#"><span class="am-icon-home"></span> 首页</a></li> -->
+                <li class="admin-parent">
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
+                        用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+                        <li class="admin-parent">
+						<a class="am-cf" href="{:U('User/index')}">
+                                <span class="am-icon-file"></span>用户中心
+                            </a>
+						</li>
+                        <li class="admin-parent">
+                        <a class="am-cf" href="{:U('Order/index')}">
+                                <span class="am-icon-file"></span>订单中心
+                            </a>
+                        </li>
+                        <li class="admin-parent">
+                        <a class="am-cf" href="{:U('Goods/index')}">
+                                <span class="am-icon-file"></span>商品管理
+                            </a>
+                        </li>
+                        <li class="admin-parent">
+                        <a class="am-cf" href="{:U('Recharge/index')}">
+                                <span class="am-icon-file"></span>充值管理
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="{:U('/Admin/Login/logout')}"><span class="am-icon-sign-out"></span> 注销</a></li>
+            </ul>
+
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-bookmark"></span> 公告</p>
+                    <p>写字楼里写字间<br/>写字间里程序员<br/>程序人员写程序<br/>又拿程序换酒钱</p>
+                    <p>喂，你是程序员，做事正经点好不好</p>
+                </div>
+            </div>
+        </div>
+        <!-- sidebar end -->
+    </block>
+    <!-- content start -->
+<block name="content">
+        <div class="admin-content">
+
+        </div>
+        <!-- content end -->
+    </block>
+
+</div>
+<block name="footer">
+    <footer>
+        <hr>
+        <p class="am-padding-left">
+        技术支持：<a href="#" target="_blank">魔术师</a><br />
+    </footer>
+</block>
+<script src="__PUBLIC__/assets/js/jquery-1.11.3.min.js"></script>
+<script src="__PUBLIC__/assets/js/amazeui.min.js"></script>
+<!--<![endif]-->
+<script src="__PUBLIC__/assets/js/app.js"></script>
+<block name="style">
+    <style>
+        /* 分页开始 */
+        .pages {
+            float: right;
+        }
+
+        .pages a, .pages span {
+            padding: 5px 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            position: relative;
+            float: left;
+            margin-left: -1px;
+            text-decoration: none;
+            border: 1px solid #ddd
+        }
+
+        .pages .current {
+            cursor: default;
+            z-index: 2;
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #337ab7
+        }
+
+        .pages .next, .pages .prev {
+            font-family: sans-serif;
+        }
+
+        .pages a:hover {
+            border-color: #eee;
+            color: #23527c;
+            background-color: #ddd;
+            /*z-index: 3;*/
+        }
+
+        .main_footer:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        /* 分页结束 */
+    </style>
+</block>
+<block name="script"></block>
+</body>
+</html>
